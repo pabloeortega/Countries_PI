@@ -1,5 +1,5 @@
 const { getCountries }  = require('../controllers/Country/getCountries');
-const { getCountryId }  = require ('../controllers/Country/getCountryById');
+const { getCountryById }  = require ('../controllers/Country/getCountryById');
 const { getCountryByName } = require('../controllers/Country/getCountrybyName');
 
 const getCountryHandler = async (req, res) => {
@@ -22,15 +22,12 @@ const getCountryHandler = async (req, res) => {
 };
 
 const getDetailHandler = async (req, res) => {
-    const { id } = req.params;
     try {
-      const country = await getCountryById(id);
-      res.status(200).json(country);
+      res.status(200).json(await getCountryById(req.params.id));
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
-  };
-  
+};
   module.exports = {
     getCountryHandler,
     getDetailHandler,
